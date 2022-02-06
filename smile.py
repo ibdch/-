@@ -90,7 +90,7 @@ class Missile(Sprite):
 
     def fire(self):
         if self.status == "ready":
-            audio = pyglet.media.load("sound.mp3")
+            audio = pyglet.media.load("sound2.mp3")
             audio.play()
             self.goto(player.xcor(), player.ycor())
             self.setheading(player.heading())
