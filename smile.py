@@ -3,14 +3,14 @@ import turtle
 import time
 import pyglet
 
-turtle.fd(0)
+
 turtle.speed(0)
 turtle.bgcolor("black")
 turtle.bgpic("nebo.gif")
 turtle.title("Sun-killer by Вагина Оксана,Серикова Дарья, Кушманов Евгений, Бурханов Руслан")
-turtle.ht()
-turtle.setundobuffer(1)
-turtle.tracer(0)
+turtle.ht() #скрывает черепаху
+turtle.setundobuffer(1) #буфер отмены действий
+turtle.tracer(0)  #обновляет экран
 
 
 class Sprite(turtle.Turtle):
@@ -57,7 +57,7 @@ class Player(Sprite):
         Sprite.__init__(self, spriteshape, color, startx, starty)
         self.shapesize(stretch_wid=0.6, stretch_len=1.1, outline=None)
         self.speed = 4
-        self.lives = 3
+
 
     def turn_left(self):
         self.lt(45)
@@ -124,17 +124,14 @@ class Particle(Sprite):
 
 class Game():
     def __init__(self):
-        self.level = 1
-        self.score = 0
-        self.state = "playing"
         self.pen = turtle.Turtle()
-        self.lives = 3
+
 
     def draw_border(self):
         # Draw border
         self.pen.speed(0)
-        self.pen.color("white")
-        self.pen.pensize(3)
+        self.pen.color("black")
+        self.pen.pensize(2)
         self.pen.penup()
         self.pen.goto(-300, 300)
         self.pen.pendown()
@@ -165,7 +162,7 @@ turtle.onkey(player.turn_right, "Right")
 turtle.onkey(player.accelerate, "Up")
 turtle.onkey(player.decelerate, "Down")
 turtle.onkey(missile.fire, "space")
-turtle.listen()
+turtle.listen()  #сбор инфы с клавиш на ключ
 
 
 while True:
