@@ -1,0 +1,2 @@
+python smile.exe
+pause
