@@ -2,87 +2,22 @@ import random
 import turtle
 import time
 import pyglet
+import f1
+from f2 import Player, Enemy, Particle
 
 
 turtle.speed(0)
 turtle.bgcolor("black")
 turtle.bgpic("nebo.gif")
 turtle.title("Sun-killer by Вагина Оксана,Серикова Дарья, Кушманов Евгений, Бурханов Руслан")
-turtle.ht() #скрывает черепаху
-turtle.setundobuffer(1) #буфер отмены действий
-turtle.tracer(0)  #обновляет экран
+turtle.ht()  # скрывает черепаху
+turtle.setundobuffer(1)  # буфер отмены действий
+turtle.tracer(0)  # обновляет экран
 
 
-class Sprite(turtle.Turtle):
+class Missile(f1.Sprite):
     def __init__(self, spriteshape, color, startx, starty):
-        turtle.Turtle.__init__(self, shape=spriteshape)
-        self.speed(0)
-        self.penup()
-        self.color(color)
-        self.fd(0)
-        self.goto(startx, starty)
-        self.speed = 1
-
-    def move(self):
-        self.fd(self.speed)
-
-        if self.xcor() > 290:
-            self.setx(290)
-            self.rt(60)
-
-        if self.xcor() < -290:
-            self.setx(-290)
-            self.rt(60)
-
-        if self.ycor() > 290:
-            self.sety(290)
-            self.rt(60)
-
-        if self.ycor() < -290:
-            self.sety(-290)
-            self.rt(60)
-
-    def is_collision(self, other):
-        if (self.xcor() >= (other.xcor() - 20)) and \
-                (self.xcor() <= (other.xcor() + 20)) and \
-                (self.ycor() >= (other.ycor() - 20)) and \
-                (self.ycor() <= (other.ycor() + 20)):
-            return True
-        else:
-            return False
-
-
-class Player(Sprite):
-    def __init__(self, spriteshape, color, startx, starty):
-        Sprite.__init__(self, spriteshape, color, startx, starty)
-        self.shapesize(stretch_wid=0.6, stretch_len=1.1, outline=None)
-        self.speed = 4
-
-
-    def turn_left(self):
-        self.lt(45)
-
-    def turn_right(self):
-        self.rt(45)
-
-    def accelerate(self):
-        self.speed += 1
-
-    def decelerate(self):
-        self.speed -= 1
-
-
-class Enemy(Sprite):
-    def __init__(self, spriteshape, color, startx, starty):
-        Sprite.__init__(self, spriteshape, color, startx, starty)
-        self.shapesize(stretch_wid=2, stretch_len=2, outline=None)
-        self.speed = 6
-        self.setheading(random.randint(0, 360))
-
-
-class Missile(Sprite):
-    def __init__(self, spriteshape, color, startx, starty):
-        Sprite.__init__(self, spriteshape, color, startx, starty)
+        f1.Sprite.__init__(self, spriteshape, color, startx, starty)
         self.shapesize(stretch_wid=0.3, stretch_len=0.4, outline=None)
         self.speed = 20
         self.status = "ready"
@@ -107,25 +42,9 @@ class Missile(Sprite):
             self.status = "ready"
 
 
-class Particle(Sprite):
-    def __init__(self, spriteshape, color, startx, starty):
-        Sprite.__init__(self, spriteshape, color, startx, starty)
-        self.shapesize(stretch_wid=0.3, stretch_len=1, outline=None)
-        self.goto(-1000, -1000)
-        self.frame = 0
-
-    def explode(self, startx, starty):
-        self.goto(startx, starty)
-        self.setheading(random.randint(0, 360))
-
-    def move(self):
-        self.fd(10)
-
-
 class Game():
     def __init__(self):
         self.pen = turtle.Turtle()
-
 
     def draw_border(self):
         # Draw border
@@ -143,7 +62,6 @@ class Game():
 
 
 game = Game()
-
 game.draw_border()
 
 # Create my sprites
@@ -155,15 +73,13 @@ particles = []
 for i in range(20):
     particles.append(Particle("circle", "red", 0, 0))
 
-
 # Keyboard binds
 turtle.onkey(player.turn_left, "Left")
 turtle.onkey(player.turn_right, "Right")
 turtle.onkey(player.accelerate, "Up")
 turtle.onkey(player.decelerate, "Down")
 turtle.onkey(missile.fire, "space")
-turtle.listen()  #сбор инфы с клавиш на ключ
-
+turtle.listen()  # сбор инфы с клавиш на ключ
 
 while True:
     turtle.update()
