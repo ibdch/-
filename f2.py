@@ -25,7 +25,7 @@ class Enemy(f1.Sprite):
     def __init__(self, spriteshape, color, startx, starty):
         f1.Sprite.__init__(self, spriteshape, color, startx, starty)
         self.shapesize(stretch_wid=2, stretch_len=2, outline=None)
-        self.speed = 6
+        self.speed = 1
         self.setheading(random.randint(0, 360))
 
 
