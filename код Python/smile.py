@@ -11,7 +11,7 @@ from f2 import Player, Enemy, Particle
 turtle.speed(0)
 turtle.bgcolor("black")
 turtle.bgpic("nebo.gif")
-turtle.title("Sun-killer by Вагина Оксана,Серикова Дарья, Кушманов Евгений, Бурханов Руслан")
+turtle.title("SUN-KILLER")
 turtle.ht()  # скрывает черепаху
 turtle.setundobuffer(1)  # буфер отмены действий
 turtle.tracer(0)  # обновляет экран
